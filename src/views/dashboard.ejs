@@ -1,0 +1,40 @@
+<% layout('layout/main') -%>
+<% block('title', 'Dashboard') -%>
+
+<section class="container mt-5">
+  <a href="/users/add" class="btn btn-outline-info btn-sm  my-4" role="button" aria-pressed="true">
+    add user
+  </a>
+</section>
+<table class="table table-striped mb-5">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Picture</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <% products.forEach((product) => { %>
+          <tr>
+
+      
+            <td> <%= product.name %></td>
+            <td> <img src="<%= product.fileUrl %>" alt="<%= product.name %>" class="img-fluid dashboard__image" ></td>
+            <td> <%= product.stock %></td>
+            <td> <%= product.description %></td>
+            <td> $<%= product.price %></td>
+            <td>
+              <a href="/users/update/<%= product.id %>" class="btn btn-outline-warning btn-sm " role="button" aria-pressed="true">Edit</a>
+              <a href="/products/buy/<%= product.id %>" class="btn btn-outline-danger btn-sm " role="button" aria-pressed="true" >Buy</a>
+            </td>
+          </tr>
+        <% }); %>
+     
+     
+    </tbody>
+  </table>

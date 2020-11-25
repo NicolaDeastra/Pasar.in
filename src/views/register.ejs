@@ -1,0 +1,21 @@
+<% layout('layout/main') -%>
+<% block('title', 'Dashboard') -%>
+
+
+<form method="POST" action="/users/register">
+  <div class="form-group col-md-6 offset-md-3">
+    <label for="username">Username</label>
+    <input type="text" name="username" class="form-control" id="username"  placeholder="Enter username">
+  </div>
+  <div class="form-group col-md-6 offset-md-3">
+    <label for="email">Email</label>
+    <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+  </div>
+  <div class="form-group col-md-6 offset-md-3">
+    <label for="password">Password</label>
+    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+  </div>
+  <div class="form-group col-md-6 offset-md-3">
+    <button type="submit" class="btn btn-primary ">Submit</button>
+  </div>
+</form>
