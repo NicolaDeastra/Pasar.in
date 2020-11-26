@@ -1,7 +1,8 @@
-import db from '../models'
+import { User } from '../models'
+import passport from '../lib/passport'
 
 class productController {
-  static getRegister = (req, res) => {
+  static getRegister = async (req, res) => {
     res.render('register')
   }
 
@@ -9,13 +10,23 @@ class productController {
     const { body } = req
 
     try {
-      const user = db.User.register(body)
+      const user = User.register(body)
 
-      res.redirect('/login')
+      res.redirect('/users/login')
     } catch (err) {
       next(err)
     }
   }
+
+  static getLogin = (req, res) => {
+    res.render('login')
+  }
+
+  static login = passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login',
+    failureFlash: true,
+  })
 }
 
 export default productController

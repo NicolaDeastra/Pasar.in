@@ -1,12 +1,13 @@
 <% layout('layout/main') -%>
-<% block('title', 'Register') -%>
+<% block('title', 'Login') -%>
+
+<% if (messages .error)
+{ %>
+<h5><%= messages.error %></ h5>
+<% } %>
 
 
-<form method="POST" action="/users/register">
-  <div class="form-group col-md-6 offset-md-3">
-    <label for="username">Username</label>
-    <input type="text" name="username" class="form-control" id="username"  placeholder="Enter username">
-  </div>
+<form method="POST" action="/users/login">
   <div class="form-group col-md-6 offset-md-3">
     <label for="email">Email</label>
     <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
@@ -17,5 +18,6 @@
   </div>
   <div class="form-group col-md-6 offset-md-3">
     <button type="submit" class="btn btn-primary ">Submit</button>
+
   </div>
 </form>
