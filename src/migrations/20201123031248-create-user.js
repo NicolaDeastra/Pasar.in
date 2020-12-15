@@ -18,6 +18,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      tokens: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+      },
     })
   },
   down: async (queryInterface, Sequelize) => {

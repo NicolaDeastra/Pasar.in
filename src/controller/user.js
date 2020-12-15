@@ -29,13 +29,16 @@ class productController {
       const user = await User.authenticate(body)
       const token = await user.generateToken()
 
-      res.cookie('login_token', token, {
-        httpOnly: true,
-        maxAge: 3600000,
-      })
-      res.status(200).json({ token })
+      res
+        .status(200)
+        .cookie('authToken', token, {
+          httpOnly: true,
+          maxAge: 3600000,
+        })
+        .redirect('/')
     } catch (err) {
-      res.status(400).send(err)
+      req.flash('error', 'login error')
+      res.status(400).render('login', { messages: req.flash('error') })
     }
   }
 

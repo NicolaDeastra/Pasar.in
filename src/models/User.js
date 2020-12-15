@@ -28,15 +28,34 @@ module.exports = (sequelize, DataTypes) => {
 
     checkPassword = (password) => bcrypt.compareSync(password, this.password)
 
-    generateToken = () => {
+    generateToken = async () => {
+      const user = this
+
       const payload = {
-        id: this.id,
-        username: this.username,
+        id: user.id,
+        username: user.username,
       }
 
       const secret = process.env.SECRET
 
       const token = jwt.sign(payload, secret)
+
+      try {
+        await user.update(
+          {
+            tokens: sequelize.fn(
+              'array_append',
+              sequelize.col('tokens'),
+              token
+            ),
+          },
+          { where: { id: user.id } }
+        )
+
+        return token
+      } catch (err) {
+        return err
+      }
 
       return token
     }
@@ -88,6 +107,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         min: 6,
         max: 25,
+      },
+      tokens: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
       },
     },
     {

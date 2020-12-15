@@ -1,8 +1,10 @@
 <% layout('layout/main') -%>
 <% block('title', 'Login') -%>
 
-<% if (messages){ %>
-  <h5><%= messages %></ h5>
+<% if(messages) { %>
+  <div class="alert alert-danger col-md-6  offset-md-3" role="alert">
+    <%= messages %>
+  </div>
 <% } %>
 
 
