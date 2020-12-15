@@ -8,6 +8,8 @@ import globalRouter from './router/global'
 import productRouter from './router/product'
 import userRouter from './router/user'
 
+import { checkAuth } from './middlewares'
+
 require('dotenv').config()
 
 const app = express()
@@ -32,6 +34,8 @@ app.use('/uploads', express.static('uploads'))
 app.set('view engine', 'ejs')
 app.engine('ejs', engine)
 app.set('views', 'src/views')
+
+app.use(checkAuth)
 
 app.use(globalRouter)
 app.use('/products', productRouter)

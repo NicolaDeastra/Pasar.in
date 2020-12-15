@@ -47,6 +47,19 @@ class productController {
 
     res.render('profile', dataValues)
   }
+
+  static logout = async (req, res) => {
+    const { user } = req
+
+    try {
+      user.tokens = null
+      await user.save()
+
+      res.redirect('/')
+    } catch (err) {
+      res.status(400).redirect('/')
+    }
+  }
 }
 
 export default productController
