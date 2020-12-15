@@ -1,6 +1,7 @@
+require('dotenv').config()
 const { Model } = require('sequelize')
 const bcrypt = require('bcrypt')
-const { Promise } = require('sequelize')
+const jwt = require('jsonwebtoken')
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -15,13 +16,30 @@ module.exports = (sequelize, DataTypes) => {
 
     static encrypt = (password) => bcrypt.hashSync(password, 8)
 
-    static register = ({ username, password, email }) => {
+    static register = ({ username, password, confirmPassword, email }) => {
+      if (password !== confirmPassword) {
+        throw new Error('password must same ')
+      }
+
       const encryptedPassword = this.encrypt(password)
 
       return this.create({ username, email, password: encryptedPassword })
     }
 
     checkPassword = (password) => bcrypt.compareSync(password, this.password)
+
+    generateToken = () => {
+      const payload = {
+        id: this.id,
+        username: this.username,
+      }
+
+      const secret = process.env.SECRET
+
+      const token = jwt.sign(payload, secret)
+
+      return token
+    }
 
     static authenticate = async ({ email, password }) => {
       try {
@@ -60,6 +78,7 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         unique: true,
+        isEmail: true,
         allowNull: false,
         min: 6,
         max: 25,

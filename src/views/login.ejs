@@ -1,9 +1,8 @@
 <% layout('layout/main') -%>
 <% block('title', 'Login') -%>
 
-<% if (messages .error)
-{ %>
-<h5><%= messages.error %></ h5>
+<% if (messages){ %>
+  <h5><%= messages %></ h5>
 <% } %>
 
 

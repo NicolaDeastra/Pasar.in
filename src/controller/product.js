@@ -1,15 +1,44 @@
-import db from '../models'
+import { Op } from 'sequelize'
+import { Product } from '../models'
 
 class productController {
   static getProducts = async (req, res) => {
     try {
-      const products = await db.Product.findAll({})
+      const products = await Product.findAll({
+        // where: {
+        //   price: {
+        //     [Op.gte]: 5,
+        //   },
+        // },
+      })
 
       // res.status(200).render('dashboard', { products })
       res.status(200).render('dashboard', { products })
     } catch (err) {
       res.status(400).send(err)
     }
+  }
+
+  static getProductsMinPrice = async (req, res) => {
+    const { minPrice = '' } = req.query
+
+    try {
+      const products = await Product.findAll({
+        where: {
+          price: {
+            [Op.gte]: minPrice,
+          },
+        },
+      })
+
+      res.status(200).render('dashboard', { products })
+    } catch (err) {
+      res.status(400).send(err)
+    }
+  }
+
+  static getPostProduct = (req, res) => {
+    res.render('create')
   }
 
   static postProduct = async (req, res) => {
@@ -27,12 +56,22 @@ class productController {
     }
 
     try {
-      const product = await db.Product.create(bodyProduct)
+      const product = await Product.create(bodyProduct)
 
-      res.status(200).send(product)
+      res.status(200).redirect('/products')
     } catch (err) {
       res.status(400).send(err)
     }
+  }
+
+  static deleteProduct = async (req, res) => {
+    const { id } = req.params
+
+    try {
+      const product = await Product.destroy({ where: { id } })
+
+      res.status(200).redirect('/products')
+    } catch (err) {}
   }
 
   static buyProduct = async (req, res) => {
@@ -42,7 +81,7 @@ class productController {
     } = req
 
     try {
-      const product = await db.Product.findOne({
+      const product = await Product.findOne({
         where: { id },
       })
 

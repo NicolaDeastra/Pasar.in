@@ -1,9 +1,9 @@
 import express from 'express'
 import engine from 'ejs-locals'
+import cookieParser from 'cookie-parser'
 import session from 'express-session'
-import flash from 'express-flash'
+import flash from 'connect-flash'
 import dotenv from 'dotenv'
-import passport from './lib/passport'
 
 import productRouter from './router/product'
 import userRouter from './router/user'
@@ -21,10 +21,7 @@ app.use(
     saveUninitialized: false,
   })
 )
-
-app.use(passport.initialize())
-app.use(passport.session())
-
+app.use(cookieParser())
 app.use(flash())
 
 app.use(express.json())

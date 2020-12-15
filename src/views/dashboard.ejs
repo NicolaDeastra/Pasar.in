@@ -2,9 +2,25 @@
 <% block('title', 'Dashboard') -%>
 
 <section class="container mt-5">
-  <a href="/users/add" class="btn btn-outline-info btn-sm  my-4" role="button" aria-pressed="true">
-    add user
-  </a>
+  <div class="row">
+    <div class="col-9">
+      <a href="/products/add" class="btn btn-outline-info btn-sm my-4" role="button" aria-pressed="true">
+        add user
+      </a>
+    </div>
+    <div class="col-3">
+      <form action="/products/min" method="GET">
+        <div class="form-row my-4">
+          <div class="col">
+            <label for="name">Min Price</label>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" name="minPrice" placeholder="Min Price">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </section>
 <table class="table table-striped mb-5">
     <thead>
@@ -24,13 +40,13 @@
 
       
             <td> <%= product.name %></td>
-            <td> <img src="<%= product.fileUrl %>" alt="<%= product.name %>" class="img-fluid dashboard__image" ></td>
+            <td> <img src="../<%= product.fileUrl %>" alt="<%= product.name %>" class="img-fluid dashboard__image" ></td>
             <td> <%= product.stock %></td>
             <td> <%= product.description %></td>
             <td> $<%= product.price %></td>
             <td>
-              <a href="/users/update/<%= product.id %>" class="btn btn-outline-warning btn-sm " role="button" aria-pressed="true">Edit</a>
-              <a href="/products/buy/<%= product.id %>" class="btn btn-outline-danger btn-sm " role="button" aria-pressed="true" >Buy</a>
+              <a href="/products/update/<%= product.id %>" class="btn btn-outline-warning btn-sm " role="button"  aria-pressed="true">Edit</a>
+              <a href="/products/delete/<%= product.id %>" class="btn btn-outline-danger btn-sm " role="button" aria-pressed="true" onClick="return confirm('Apa kamu yakin ingin menghapus aku dari ingatan kamu?');">Delete</a>
             </td>
           </tr>
         <% }); %>
