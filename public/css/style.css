@@ -70,6 +70,11 @@ body {
   font-size: 2rem;
 }
 
+.bg-primary {
+  background-color: #4b7a5e !important;
+  color: #fff;
+}
+
 .btn-primary {
   background-color: #4b7a5e !important;
   border: #4b7a5e !important;
@@ -80,6 +85,16 @@ body {
 .btn-primary:hover {
   background-color: #5e9a76 !important;
   border: #5e9a76 !important;
+}
+
+.btn-warning {
+  border-radius: 0;
+  padding: 0.5rem 1rem;
+}
+
+.btn-danger {
+  border-radius: 0;
+  padding: 0.5rem 1rem;
 }
 
 .dashboard__image {
@@ -187,10 +202,6 @@ body {
   }
 }
 @media (max-width: 767px) {
-  .home__header {
-    height: 160vh;
-  }
-
   .home__header-img {
     margin-left: 0;
     width: 40rem;

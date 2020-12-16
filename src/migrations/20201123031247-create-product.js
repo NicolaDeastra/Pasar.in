@@ -22,9 +22,25 @@ module.exports = {
       price: {
         type: Sequelize.INTEGER,
       },
-    });
+      userId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'User',
+          key: 'id',
+        },
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Product');
+    await queryInterface.dropTable('Product')
   },
-};
+}

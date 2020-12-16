@@ -2,11 +2,11 @@ import express from 'express'
 
 import productController from '../controller/product'
 
-import { uploadPhoto } from '../middlewares'
+import { uploadPhoto, isAuth } from '../middlewares'
 
 const router = express.Router()
 
-router.get('/', productController.getProducts)
+router.get('/', isAuth, productController.getProducts)
 
 router.get('/min', productController.getProductsMinPrice)
 

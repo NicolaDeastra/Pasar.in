@@ -3,13 +3,15 @@ import { Product } from '../models'
 
 class productController {
   static getProducts = async (req, res) => {
+    const {
+      user: { id },
+    } = req
+
     try {
       const products = await Product.findAll({
-        // where: {
-        //   price: {
-        //     [Op.gte]: 5,
-        //   },
-        // },
+        where: {
+          userId: id,
+        },
       })
 
       // res.status(200).render('dashboard', { products })
@@ -45,6 +47,7 @@ class productController {
     const {
       body: { name, stock, description, price },
       file: { path },
+      user,
     } = req
 
     const bodyProduct = {
@@ -53,6 +56,7 @@ class productController {
       stock,
       description,
       price,
+      userId: user.id,
     }
 
     try {

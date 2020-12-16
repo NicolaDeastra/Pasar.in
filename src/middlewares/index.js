@@ -32,7 +32,17 @@ export const checkAuth = async (req, res, next) => {
 }
 
 export const isAuth = (req, res, next) => {
-  if (req.isAuthenticated()) return next()
+  if (req.user) {
+    next()
+  } else {
+    res.redirect('/users/login')
+  }
+}
 
-  res.redirect('/users/login')
+export const isPublic = (req, res, next) => {
+  if (req.user) {
+    res.redirect('/')
+  } else {
+    next()
+  }
 }

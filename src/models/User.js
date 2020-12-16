@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      const { Product } = models
+
+      User.hasHooks(Product, {
+        foreignKey: 'userId',
+      })
     }
 
     static encrypt = (password) => bcrypt.hashSync(password, 8)
