@@ -3,7 +3,19 @@ import jwt from 'jsonwebtoken'
 import { Op } from 'sequelize'
 import { User } from '../models'
 
-const multerPhoto = multer({ dest: 'uploads/photo' })
+const multerPhoto = multer({
+  dest: 'uploads/photo',
+  limits: {
+    fileSize: 1500000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error('Please upload image file'))
+    }
+
+    return cb(undefined, true)
+  },
+})
 
 export const uploadPhoto = multerPhoto.single('photo')
 
@@ -45,4 +57,13 @@ export const isPublic = (req, res, next) => {
   } else {
     next()
   }
+}
+
+export const clientErrorHandler = (req, res, next) => {
+  res.status(404).render('404')
+}
+
+export const fileErrorHandler = (error, req, res, next) => {
+  req.flash('error', error.message)
+  res.status(400).render('create', { messages: req.flash('error') })
 }

@@ -8,7 +8,7 @@ import globalRouter from './router/global'
 import productRouter from './router/product'
 import userRouter from './router/user'
 
-import { checkAuth } from './middlewares'
+import { checkAuth, clientErrorHandler, errorHandler } from './middlewares'
 
 require('dotenv').config()
 
@@ -40,6 +40,8 @@ app.use(checkAuth)
 app.use(globalRouter)
 app.use('/products', productRouter)
 app.use('/users', userRouter)
+
+app.use(clientErrorHandler)
 
 app.listen(port, () =>
   console.log(`Server run on port : http://localhost:${port}`)

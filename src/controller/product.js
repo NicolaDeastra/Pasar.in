@@ -1,5 +1,7 @@
 import { Op } from 'sequelize'
 import { Product } from '../models'
+import multer from 'multer'
+import { uploadPhoto } from '../middlewares'
 
 class productController {
   static getProducts = async (req, res) => {
@@ -40,7 +42,7 @@ class productController {
   }
 
   static getPostProduct = (req, res) => {
-    res.render('create')
+    res.render('create', { messages: null })
   }
 
   static postProduct = async (req, res) => {
@@ -64,7 +66,7 @@ class productController {
 
       res.status(200).redirect('/products')
     } catch (err) {
-      res.status(400).send(err)
+      res.status(400).render('create', { messages: req.flash('error') })
     }
   }
 
