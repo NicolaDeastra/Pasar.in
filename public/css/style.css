@@ -59,6 +59,22 @@ body {
   width: 35rem;
 }
 
+.home__about {
+  background-color: #fff;
+}
+
+.home__about-title {
+  font-family: 'Alfa Slab One', cursive;
+}
+
+.home__about-card {
+  border: 0 !important;
+}
+
+.home__about-card h5 {
+  font-weight: bold;
+}
+
 .blog-heading {
   text-align: center;
   font-weight: bold;
