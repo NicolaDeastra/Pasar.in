@@ -1,7 +1,7 @@
 <% layout('layout/main') -%>
 <% block('title', 'Update Product') -%>
 
-<form target="/products/update/<%= product.id %>"  method="POST" enctype="application/x-www-form-urlencoded">
+<form target="/products/update/<%= product.id %>"  method="POST" enctype="multipart/form-data">
     <div class="form-group col-md-6 offset-md-3">
       <label for="name">Name</label>
       <input type="text" name="name" class="form-control" id="name" value="<%= product.name %>" placeholder="Name" required >

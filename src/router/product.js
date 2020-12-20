@@ -18,7 +18,7 @@ router.post(
 router.get('/delete/:id', productController.deleteProduct)
 router.post('/buy/:id', productController.buyProduct)
 router.get('/update/:id', productController.getUpdateProduct)
-router.post('/update/:id', productController.postUpdateProduct)
+router.post('/update/:id', uploadPhoto, productController.postUpdateProduct)
 router.get('/add/category', productController.getCreateCategory)
 router.post('/add/category', productController.postCreateCategory)
 

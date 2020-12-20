@@ -47,7 +47,7 @@ class productController {
 
   static postProduct = async (req, res) => {
     const {
-      body: { name, stock, description, price, category },
+      body: { name, stock, description, price },
       file: { path },
       user,
     } = req
@@ -84,12 +84,21 @@ class productController {
 
   static postUpdateProduct = async (req, res) => {
     const {
-      body,
+      body: { name, stock, description, price },
+      file: { path },
       params: { id },
     } = req
 
+    const bodyProduct = {
+      name,
+      fileUrl: path,
+      stock,
+      description,
+      price,
+    }
+
     try {
-      const product = await Product.update(body, { where: { id } })
+      const product = await Product.update(bodyProduct, { where: { id } })
 
       res.status(200).redirect('/products')
     } catch (err) {
