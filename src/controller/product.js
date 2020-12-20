@@ -47,7 +47,7 @@ class productController {
 
   static postProduct = async (req, res) => {
     const {
-      body: { name, stock, description, price },
+      body: { name, stock, description, price, category },
       file: { path },
       user,
     } = req
@@ -67,6 +67,33 @@ class productController {
       res.status(200).redirect('/products')
     } catch (err) {
       res.status(400).render('create', { messages: req.flash('error') })
+    }
+  }
+
+  static getUpdateProduct = async (req, res) => {
+    const { id } = req.params
+
+    try {
+      const product = await Product.findOne({ where: { id } })
+
+      res.status(200).render('update', { product })
+    } catch (err) {
+      res.status(400).send(err)
+    }
+  }
+
+  static postUpdateProduct = async (req, res) => {
+    const {
+      body,
+      params: { id },
+    } = req
+
+    try {
+      const product = await Product.update(body, { where: { id } })
+
+      res.status(200).redirect('/products')
+    } catch (err) {
+      res.status(400).send(err)
     }
   }
 
@@ -96,6 +123,22 @@ class productController {
       product.save()
 
       res.status(200).send(product)
+    } catch (err) {
+      res.status(400).send(err)
+    }
+  }
+
+  static getCreateCategory = (req, res) => {
+    res.render('createCategory')
+  }
+
+  static postCreateCategory = async (req, res) => {
+    const { name } = req.body
+
+    try {
+      const category = await Category.create({ name })
+
+      res.status(200).redirect('/products')
     } catch (err) {
       res.status(400).send(err)
     }

@@ -7,9 +7,7 @@ import { uploadPhoto, isAuth, fileErrorHandler } from '../middlewares'
 const router = express.Router()
 
 router.get('/', isAuth, productController.getProducts)
-
 router.get('/min', productController.getProductsMinPrice)
-
 router.get('/add', productController.getPostProduct)
 router.post(
   '/add',
@@ -17,9 +15,11 @@ router.post(
   productController.postProduct,
   fileErrorHandler
 )
-
 router.get('/delete/:id', productController.deleteProduct)
-
 router.post('/buy/:id', productController.buyProduct)
+router.get('/update/:id', productController.getUpdateProduct)
+router.post('/update/:id', productController.postUpdateProduct)
+router.get('/add/category', productController.getCreateCategory)
+router.post('/add/category', productController.postCreateCategory)
 
 export default router

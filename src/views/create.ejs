@@ -8,7 +8,7 @@
 <% } %>
 
 
-<form target="/product/add"  method="POST" enctype="multipart/form-data" >
+<form target="/products/add"  method="POST" enctype="multipart/form-data" >
     <div class="form-group col-md-6 offset-md-3">
       <label for="name">Name</label>
       <input type="text" name="name" class="form-control" id="name" placeholder="Name" required >
@@ -29,6 +29,8 @@
       <label for="price">Price</label>
       <input type="number" name="price" class="form-control" id="price" placeholder="Price" required >
     </div>
+   
+
     <div class="form-group col-md-6 offset-md-3">
         <button type="submit" class="btn btn-primary" >Submit</button>
     </div>

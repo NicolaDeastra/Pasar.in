@@ -8,12 +8,18 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      const { User } = models
+      const { User, Category, ProductCategory } = models
 
       Product.belongsTo(User, {
         foreignKey: 'userId',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+      })
+
+      Product.belongsToMany(Category, {
+        as: 'CategoryForProduct',
+        through: ProductCategory,
+        foreignKey: 'id',
       })
     }
   }
@@ -40,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
       price: { type: DataTypes.INTEGER },
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+      },
     },
     {
       sequelize,

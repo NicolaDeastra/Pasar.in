@@ -8,7 +8,7 @@ import globalRouter from './router/global'
 import productRouter from './router/product'
 import userRouter from './router/user'
 
-import { checkAuth, clientErrorHandler, errorHandler } from './middlewares'
+import { checkAuth, clientErrorHandler } from './middlewares'
 
 require('dotenv').config()
 
