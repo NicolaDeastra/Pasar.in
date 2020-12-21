@@ -4,8 +4,11 @@
 <section class="container mt-5">
   <div class="row my-4">
     <div class="col-md-4">
-      <a href="/products/add" class="btn btn-primary " role="button" aria-pressed="true">
+      <a href="/products/add" class="btn btn-primary" role="button" aria-pressed="true">
         Add Product
+      </a>
+      <a href="/products/add/category" class="btn btn-warning" role="button" aria-pressed="true">
+        Create Category
       </a>
     </div>
     <div class="col-md-2 offset-md-6">
@@ -42,6 +45,7 @@
               <td> $<%= product.price %></td>
               <td>
                 <a href="/products/update/<%= product.id %>" class="btn btn-warning btn-sm " role="button"  aria-pressed="true">Edit</a>
+                <a href="/products/add/category/<%= product.id %>" class="btn btn-info btn-sm " role="button"  aria-pressed="true">Add Category</a>
                 <a href="/products/delete/<%= product.id %>" class="btn btn-danger btn-sm " role="button" aria-pressed="true" onClick="return confirm('Apa kamu yakin ingin menghapus aku dari ingatan kamu?');">Delete</a>
               </td>
             </tr>

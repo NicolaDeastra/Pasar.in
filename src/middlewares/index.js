@@ -1,6 +1,6 @@
 import multer from 'multer'
 import jwt from 'jsonwebtoken'
-import { Op } from 'sequelize'
+import sequelize, { Op } from 'sequelize'
 import { User } from '../models'
 
 const multerPhoto = multer({
@@ -61,6 +61,14 @@ export const isPublic = (req, res, next) => {
 
 export const clientErrorHandler = (req, res, next) => {
   res.status(404).render('404')
+}
+
+export const dbErrorHandler = async () => {
+  try {
+    await sequelize.authenticate()
+  } catch (err) {
+    throw new Error('Unable to connect to the database , ', err.message)
+  }
 }
 
 export const fileErrorHandler = (error, req, res, next) => {

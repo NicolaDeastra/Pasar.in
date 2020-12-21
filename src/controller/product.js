@@ -1,5 +1,5 @@
 import { Op } from 'sequelize'
-import { Product } from '../models'
+import { Product, Category, ProductCategory } from '../models'
 import multer from 'multer'
 import { uploadPhoto } from '../middlewares'
 
@@ -150,6 +150,38 @@ class productController {
       res.status(200).redirect('/products')
     } catch (err) {
       res.status(400).send(err)
+    }
+  }
+
+  static getAddCategory = async (req, res) => {
+    const { id } = req.params
+
+    try {
+      const product = await Product.findOne({ where: { id } })
+      const categories = await Category.findAll({})
+
+      const productId = product.id
+      res.render('addCategory', { productId, categories })
+    } catch (err) {
+      res.status(400).send(err)
+    }
+  }
+
+  static postAddCategory = async (req, res) => {
+    const {
+      params: { id },
+      body: { categoryId },
+    } = req
+
+    try {
+      await ProductCategory.create({
+        productId: id,
+        categoryId,
+      })
+
+      res.status(200).redirect('/products')
+    } catch (err) {
+      res.status(400).send(400)
     }
   }
 }

@@ -1,2 +1,18 @@
 <% layout('layout/main') -%>
 <% block('title', 'Add Category') -%>
+
+<form target="/product/add/category/<%= productId %>"  method="POST" >
+    <div class="form-group col-md-6 offset-md-3">
+        <label for="category" class="color-font">Select Category </label>
+        <select class="custom-select" name="categoryId" id="category"
+            aria-label="Example select with button addon" required>
+            <option selected>Choose...</option>
+            <% categories.forEach((category) => {%>
+                <option value="<%= category.id %>"><%= category.name %></option>
+            <% }); %> 
+        </select>
+    </div>
+    <div class="form-group col-md-6 offset-md-3">
+        <button type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+</form>
