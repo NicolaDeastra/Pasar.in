@@ -1,5 +1,5 @@
-import { Op } from 'sequelize'
-import { Product, Category, ProductCategory } from '../models'
+import { Op, where } from 'sequelize'
+import { Product, Category } from '../models'
 import multer from 'multer'
 import { uploadPhoto } from '../middlewares'
 
@@ -174,14 +174,29 @@ class productController {
     } = req
 
     try {
-      await ProductCategory.create({
-        productId: id,
-        categoryId,
-      })
+      const category = await Category.findOne({ where: { id: categoryId } })
+
+      const product = await Product.findOne({ where: { id } })
+
+      await category.addProduct(product)
 
       res.status(200).redirect('/products')
     } catch (err) {
-      res.status(400).send(400)
+      res.status(400).send(err)
+    }
+  }
+
+  static getProductByCategory = async (req, res) => {
+    const { id } = req.params
+
+    try {
+      const category = await Category.findOne({ where: { id } })
+
+      const product = await category.getProducts()
+
+      res.json(product)
+    } catch (err) {
+      res.status(400).json({ error: err })
     }
   }
 }
