@@ -23,6 +23,6 @@ router.get('/add/category', productController.getCreateCategory)
 router.post('/add/category', productController.postCreateCategory)
 router.get('/add/category/:id', productController.getAddCategory)
 router.post('/add/category/:id', productController.postAddCategory)
-router.get('/category/:id', productController.getProductByCategory)
+router.get('/category/:name', productController.getProductByCategory)
 
 export default router

@@ -187,10 +187,10 @@ class productController {
   }
 
   static getProductByCategory = async (req, res) => {
-    const { id } = req.params
+    const { name } = req.params
 
     try {
-      const category = await Category.findOne({ where: { id } })
+      const category = await Category.findOne({ where: { name } })
 
       const product = await category.getProducts()
 
